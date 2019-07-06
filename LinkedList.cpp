@@ -4,52 +4,57 @@ using namespace std;
 struct Node
 {
     int data;
-    Node* ahead;
-    Node* before;
+    Node* prev;
+    Node* next;
 };
 
 Node* GetNewNode(int data)
 {
     Node* newNode = new Node();
     newNode->data = data;
-    newNode->ahead = NULL;
-    newNode->before = NULL;
+    newNode->prev = NULL;
+    newNode->next = NULL;
 }
 
 
-Node* InsertNode(Node* head, int data){
-    if(head == NULL){ head = GetNewNode(data); return head;}
-    else if(head->before != NULL){
-        InsertNode(head->before,data);}
-    else{
-        head->before = GetNewNode(data);
-        (head->before)->ahead = head;
-    }
-}
-
-int PopNode(Node** head)
+void InsertFront(Node** head,Node** tail, int data)
 {
-    if(*head==NULL){cout<<((**head).ahead)->data; return ((**head).ahead)->data;}
-    else{
-        PopNode(&(**head).before);
-    }
+    if((**head).next == NULL){
+         cout<<"\nMaking new Node :"<<data;
+         (**head).next = GetNewNode(data);
+         (**tail).prev = (**head).next;
+         ((**head).next)->next=*tail;
+         ((**head).next)->prev=*head;
+         return ;}
+    else {
+        cout<<"\nMaking new Node :"<<data;
+        (*((**head).next)).prev = GetNewNode(data);
+        ((*(**head).next).prev)->next = (**head).next;
+        (**head).next = (*(**head).next).prev;
+        ((**head).next)->prev=*head;
+        return;
+        }
+}
+
+Node* InsertAfter(Node* target,int data);
+
+Node* InsertBack(Node* tail,int data);
+
+
+void PopBack(Node** tail);
+
+
+
+int PopFront(Node** head)
+{
 }
 
 
 
 int main(int argc, char const *argv[])
 {
-    Node* front = NULL;
-    Node* end = NULL;
-    front = InsertNode(front,10);
-    front = InsertNode(front,20);
-    front = InsertNode(front,30);
-    front = InsertNode(front,40);
-    front = InsertNode(front,50);
-    front = InsertNode(front,60);
-    front = InsertNode(front,70);
+    Node* head = NULL;  Node* tail = NULL;
+    InsertFront(&head,&tail,50);
 
-    PopNode(&front);
-    PopNode(&front);
     return 0;
 }
