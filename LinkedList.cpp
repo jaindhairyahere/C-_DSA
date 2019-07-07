@@ -60,25 +60,15 @@ void InsertFront(Node* head, Node* tail, int data)
 
 void InsertAfter(Node* target,int data)
 {
-    if(target->next == NULL)
-    {
-        cout<<"\nMaking First new Node at Front(SP) :"<<data;
-        Node* temp = GetNewNode(data);
-        temp->prev = target;
-        temp->next = target->next;
-        target->next = temp;
-        (temp->next)->prev = temp->next;
-        return;
-    }
-    else{
-        cout<<"\nMaking new Node at Front(SP) :"<<data;
-         Node* temp = GetNewNode(data);
-        temp->prev = target;
-        temp->next = target->next;
-        target->next = temp;
-        (temp->next)->prev = temp->next;
-        return;
-    }
+
+    cout<<"\nMaking new Node after target(SP) :"<<data;
+    Node* temp = GetNewNode(data);
+    temp->prev = target;
+    temp->next = target->next;
+    target->next = temp;
+    (temp->next)->prev = temp;
+    return;
+
 }
 
 void InsertBack(Node* head,Node* tail,int data)
@@ -164,5 +154,7 @@ int main(int argc, char const *argv[])
     cout<<"\n Front Element : "<<GetFront(head);
     cout<<"\n Last  Element : "<<GetLast(tail)<<"\n";
 
+    InsertAfter(tail->prev->prev,500);
+    cout<<"\n Now Element at that position is :"<<tail->prev->prev->data<<"\n";
     return 0;
 }
