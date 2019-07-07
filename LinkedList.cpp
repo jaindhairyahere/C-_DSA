@@ -72,10 +72,11 @@ void InsertAfter(Node* target,int data)
     }
     else{
         cout<<"\nMaking new Node at Front(SP) :"<<data;
-        (head->next)->prev = GetNewNode(data);
-        ((head->next)->prev)->next = head->next;
-        head->next = (head->next)->prev;
-        (head->next)->prev=head;
+         Node* temp = GetNewNode(data);
+        temp->prev = target;
+        temp->next = target->next;
+        target->next = temp;
+        (temp->next)->prev = temp->next;
         return;
     }
 }
@@ -112,8 +113,10 @@ void PopBack(Node* tail)
     else{
         ((tail->prev)->prev)->next = tail;
         Node* temp  = ((tail->prev)->prev);
+        cout<<"\nPopping at Back :"<<(tail->prev)->data;
         delete (tail->prev);
         tail->prev  = temp;
+
     }
 }
 
@@ -128,6 +131,7 @@ void PopFront(Node* head)
     else{
         ((head->next)->next)->prev = head;
         Node* temp  = ((head->next)->next);
+        cout<<"\nPopping at Front :"<<(head->next)->data;
         delete (head->next);
         head->next  = temp;
     }
