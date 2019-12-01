@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-    int n = 10000;
+    int n = 100;
     int array[n];
     rep(i,0,n){
         array[i] = i*2 + i*i;
